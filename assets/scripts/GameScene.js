@@ -17,6 +17,7 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
     create() { // метод класса вывод изображений на экран после загрузки в прелоаде
         this.createBackground();
         this.createCards();
+        this.openedCard = null; // присваеваем переменной значение ранее открытой карты
     }
 
     createBackground() { // создаёт фон для вывода на экран
@@ -48,6 +49,27 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
     }
 
     onCardClicked(pointer, card) { // метод вызывает клик по карте и передает параметры
+        if (card.opened) { // проверка если карта уже открыта и на нее кликнуть
+            return false; // выйти из функции onCardClicked и не запускать логику игры для открытой карты
+        }
+        
+        if (this.openedCard) { // условие если есть открытая карта
+            // уже есть открытая карта
+            if (this.openedCard.value === card.value) { // условие если значения открытых пар карт равны
+                // запомнить и не закрывать
+                this.openedCard = null; // обнуляем значение карт
+            } else {
+                // если разные закрыть карту предыдущую
+                this.openedCard.close(); // вызывает метод закрытия карты
+                this.openedCard = card; // записывает значение карты в открытую карту
+            }
+
+        } else {
+            //еще нет открытой карты
+            this.openedCard = card; // записывает значение карты в открытую карту
+        }
+        
+        
         card.open(); // вызывает метод открытие карты из класса card
     }
 
