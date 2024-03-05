@@ -7,7 +7,7 @@ class Card extends Phaser.GameObjects.Sprite { // создаём класс ун
         this.scene.add.existing(this); // выводит спрайт изображений на экран (выводит сцену в созданном ранее объекте)
         this.setInteractive(); // базовая функция делает элементы интерактивными
     
-        this.on('pointerdown', this.open, this); // метод отслеживает нажатие на элемент (карту)
+        //this.on('pointerdown', this.open, this); // метод отслеживает нажатие на элемент (карту)
     }
 
     open() { // отдельный метод класса карт, открывае карты по клику

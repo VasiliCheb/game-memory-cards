@@ -43,6 +43,12 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
                 this.cards.push(new Card(this, value, positions.pop())); // записывает новые данные в массив карт из класса Card (pop() - выбирает последний элемент массива и удаляет его)
             }
         }
+
+        this.input.on('gameobjectdown', this.onCardClicked, this); // метод отслеживает нажатие на элемент (карту) обработчик события через объект инпут
+    }
+
+    onCardClicked(pointer, card) { // метод вызывает клик по карте и передает параметры
+        card.open(); // вызывает метод открытие карты из класса card
     }
 
     getCardsPositions() { // функция создает массив позиций на экране всех карт
