@@ -99,8 +99,8 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
         let cardWidth = cardTexture.width + 4; // сохраняет в переменную значение ширины карты + отступ по ширине
         let cardHeight = cardTexture.height + 4; // сохраняет в переменную значение высоты карты + отступ по высоте
         // центруем в канвасе всю колоду карт
-        let offsetX = (this.sys.game.config.width - cardWidth * config.cols) / 2; // вычисляет старт 1 карты по оси Х для равномерных отступов по краям канваса
-        let offsetY = (this.sys.game.config.height - cardHeight * config.rows) / 2; // вычисляет старт 1 карты по оси У для равномерных отступов в верху и снизу канваса
+        let offsetX = (this.sys.game.config.width - cardWidth * config.cols) / 2 + cardWidth / 2; // вычисляет старт 1 карты по оси Х для равномерных отступов по краям канваса
+        let offsetY = (this.sys.game.config.height - cardHeight * config.rows) / 2 + cardHeight / 2; // вычисляет старт 1 карты по оси У для равномерных отступов в верху и снизу канваса
 
         for (let row = 0; row < config.rows; row++) { // цикл создает количество рядов согласно данных конфига
             for (let col = 0; col < config.cols; col++) { // цикл создает количество колонок в рядах согласно данных конфига
