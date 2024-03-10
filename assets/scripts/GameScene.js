@@ -15,13 +15,34 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
     }
 
     createText() { // создаёт метод для вывода текста
-        this.timeoutText = this.add.text(10, 330, 'Time:', { // передает параметры текста (X, Y, текст)
+        this.timeoutText = this.add.text(10, 330, '', { // передает параметры текста (X, Y, текст)
             font: '36px CurseCasual', // шрифт
             fill: '#ffffff' // цвет шрифта
         });
     }
 
-    create() { // метод класса вывод изображений на экран после загрузки в прелоаде
+    onTimerTick() { // создает логику работы таймера (колбек таймера)
+        this.timeoutText.setText('Time: ' + this.timeout); // передает значение таймера с текстом в текстовое поле - createText
+
+        if (this.timeout <= 0) { // условие проверки окончание времени таймера
+            this.start(); // метод перезапуска игры
+        } else {
+            --this.timeout; // запускает обратный отсчет таймера
+        }
+    }
+
+    createTimer() { // создаёт метод для создания таймера
+        this.time.addEvent({ // вызывает у свойства объекта конфигуратор часов
+            delay: 1000, // задержка через какое время запустится событие в мл./сек
+            callback: this.onTimerTick, // функция запуска события в объекте
+            callbackScope: this, // передает объект в onTimerTick
+            loop: true // флаг запускае колбек через каждый промежуток делея
+        });
+    }
+
+    create() { // запускает работу методов в объекте после загрузки в прелоаде
+        this.timeout = config.timeout; // получаем время таимаута из конфига игры
+        this.createTimer(); // метод запуска таймера
         this.createBackground(); // метод для вывода фона на экран
         this.createText(); // метод для вывода текста
         this.createCards(); // метод для вывода карт на экран
@@ -29,6 +50,7 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
     }
 
     start() { // создаёт метод перезапуска игры
+        this.timeout = config.timeout; // получаем время таимаута из конфига игры
         this.openedCard = null; // присваеваем переменной значение ранее открытой карты
         this.openedCardsCount = 0; // счетчик открытых и сохраненных пар карт
         this.initCards(); // метод инициализации логики работы карт и их позиций на экране
