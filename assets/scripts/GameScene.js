@@ -14,8 +14,16 @@ class GameScene extends Phaser.Scene { // создаём класс унасле
         this.load.image('card5', 'assets/sprites/card5.png');
     }
 
+    createText() { // создаёт метод для вывода текста
+        this.timeoutText = this.add.text(10, 330, 'Time:', { // передает параметры текста (X, Y, текст)
+            font: '36px CurseCasual', // шрифт
+            fill: '#ffffff' // цвет шрифта
+        });
+    }
+
     create() { // метод класса вывод изображений на экран после загрузки в прелоаде
-        this.createBackground(); // // метод для вывода фона на экран
+        this.createBackground(); // метод для вывода фона на экран
+        this.createText(); // метод для вывода текста
         this.createCards(); // метод для вывода карт на экран
         this.start(); // метод перезапуска игры
     }
